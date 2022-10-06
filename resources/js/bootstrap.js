@@ -15,9 +15,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 axios.interceptors.response.use({}, err => {
     if (err.response.status === 401 || err.response.status === 419) {
-        const qr_token = localStorage.getItem('qr_token');
-        if (qr_token) localStorage.removeItem('qr_token')
-
+        if (localStorage.getItem('vuex')) localStorage.removeItem('vuex')
         router.push({ name: 'login' })
     }
 })

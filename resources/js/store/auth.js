@@ -22,8 +22,10 @@ export default new createStore({
         async register({ commit }, credentials) {
             axios.get('/sanctum/csrf-cookie').then(response => {
                 axios.post('/api/register', credentials).then(res => {
-                    commit('authenticateUser')
-                    router.push('/home');
+                    if (res) {
+                        commit('authenticateUser')
+                        router.push('/home');
+                    }else alert("Error with data!")
                 })
             });
         },
@@ -32,8 +34,10 @@ export default new createStore({
                 .then(res => {
                     axios.post('/api/login', credentials)
                         .then(data => {
-                            commit('authenticateUser')
-                            router.push('/home');
+                            if (data) {
+                                commit('authenticateUser')
+                                router.push('/home');
+                            }else alert("Error with data!")
                         })
                 });
 
